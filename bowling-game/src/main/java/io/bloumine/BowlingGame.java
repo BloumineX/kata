@@ -2,11 +2,13 @@ package io.bloumine;
 
 public class BowlingGame {
 
-    public void rolls(Integer integer) {
+    private Integer score = 0;
 
+    public void rolls(Integer roll) {
+        score += roll;
     }
 
     public int score() {
-        return 0;
+        return score;
     }
 }
