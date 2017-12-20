@@ -1,34 +1,37 @@
 package io.bloumine;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
 
 public class BowlingGameTest {
 
+    private BowlingGame bowlingGame;
+
+    @BeforeEach
+    void setUp() {
+        bowlingGame = new BowlingGame();
+    }
+
     @Test
     public void should_score_0_when_gutter_game() {
-        //Arrange
-        BowlingGame bowlingGame = new BowlingGame();
-        Stream.iterate(0, n -> 0).limit(20).forEach(bowlingGame::rolls);
+        performRolls(0);
 
-        //Act
-        int scorePlayer = bowlingGame.score();
-
-        //Assert
-        Assertions.assertThat(scorePlayer).isEqualTo(0);
+        Assertions.assertThat(bowlingGame.score()).isEqualTo(0);
     }
 
     @Test
     public void should_score_20_when_rolls_1_each_time() {
-        BowlingGame bowlingGame = new BowlingGame();
-        Stream.iterate(1, n->1).limit(20).forEach(bowlingGame::rolls);
+        performRolls(1);
 
-        int scorePlayer = bowlingGame.score();
-
-        Assertions.assertThat(scorePlayer)
+        Assertions.assertThat(bowlingGame.score())
                 .isEqualTo(20);
+    }
+
+    private void performRolls(int roll) {
+        Stream.iterate(roll, nextRoll -> nextRoll).limit(20).forEach(bowlingGame::rolls);
     }
 
 }
