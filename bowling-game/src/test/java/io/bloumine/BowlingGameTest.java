@@ -30,8 +30,8 @@ public class BowlingGameTest {
                 .isEqualTo(20);
     }
 
-    private void performRolls(int roll) {
-        Stream.iterate(roll, nextRoll -> nextRoll).limit(20).forEach(bowlingGame::rolls);
+    private void performRolls(int pinsDownPerRoll) {
+        Stream.iterate(pinsDownPerRoll, nextRoll -> nextRoll).limit(20).forEach(bowlingGame::rolls);
     }
 
 }
