@@ -1,10 +1,11 @@
 package io.bloumine;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class BowlingGameTest {
 
@@ -17,21 +18,31 @@ public class BowlingGameTest {
 
     @Test
     public void should_score_0_when_gutter_game() {
-        performRolls(0);
+        performRolls(20, 0);
 
-        Assertions.assertThat(bowlingGame.score()).isEqualTo(0);
+        assertThat(bowlingGame.score()).isEqualTo(0);
     }
 
     @Test
     public void should_score_20_when_rolls_1_each_time() {
-        performRolls(1);
+        performRolls(20, 1);
 
-        Assertions.assertThat(bowlingGame.score())
+        assertThat(bowlingGame.score())
                 .isEqualTo(20);
     }
 
-    private void performRolls(int pinsDownPerRoll) {
-        Stream.iterate(pinsDownPerRoll, nextRoll -> nextRoll).limit(20).forEach(bowlingGame::rolls);
+    @Test
+    public void should_score_29_when_roll_spare_and_1_pin_down_each_roll() {
+        performRolls(2, 5);
+        performRolls(18, 1);
+
+        assertThat(bowlingGame.score())
+                .isEqualTo(29);
     }
 
+    private void performRolls(int roll, int pinsDownPerRoll) {
+        Stream.iterate(pinsDownPerRoll, nextRoll -> nextRoll)
+                .limit(roll)
+                .forEach(bowlingGame::rolls);
+    }
 }
