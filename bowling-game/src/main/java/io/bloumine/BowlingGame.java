@@ -12,20 +12,20 @@ public class BowlingGame {
     }
 
     public void rolls(Integer pinsDownPerRoll) {
-        Frame frame = getOrCreateLastFrame();
+        Frame frame = getLastFrame();
         frame.roll(pinsDownPerRoll);
     }
 
-    private Frame getOrCreateLastFrame() {
-        if (frames.size() > 0) {
-            Frame frame = frames.get(frames.size() - 1);
-            if (frame.getRolls().size() == 1)
-                return frame;
-        }
-
-        Frame frame = new Frame();
-        frames.add(frame);
-        return frame;
+    private Frame getLastFrame() {
+        return frames.
+                stream()
+                .reduce((frame1, frame2) -> frame2)
+                .filter(lastFrame -> lastFrame.rollTry() != 2)
+                .orElseGet(() -> {
+                    Frame newFrame = new Frame();
+                    frames.add(newFrame);
+                    return newFrame;
+                });
     }
 
     public int score() {
