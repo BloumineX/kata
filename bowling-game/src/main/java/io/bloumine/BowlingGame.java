@@ -1,50 +1,46 @@
 package io.bloumine;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Optional;
 
 public class BowlingGame {
 
-    private List<Frame> frames;
+    private static final int SECOND_TRY = 2;
+    private static final int NEXT_FRAME = 1;
+    private Deque<Frame> frames;
 
     public BowlingGame() {
-        this.frames = new ArrayList<>();
+        this.frames = new LinkedList<>();
+
     }
 
     public void rolls(Integer pinsDownPerRoll) {
-        Frame frame = getLastFrame();
+        Frame frame = getOrCreateLastFrame();
         frame.roll(pinsDownPerRoll);
     }
 
-    private Frame getLastFrame() {
-        return frames.
-                stream()
-                .reduce((frame1, frame2) -> frame2)
-                .filter(lastFrame -> lastFrame.rollTry() != 2)
+    private Frame getOrCreateLastFrame() {
+        return Optional.ofNullable(frames.peekLast())
+                .filter(frame -> frame.rollTry() != SECOND_TRY)
                 .orElseGet(() -> {
-                    Frame newFrame = new Frame();
-                    frames.add(newFrame);
-                    return newFrame;
-                });
+                            Frame newFrame = new Frame();
+                            frames.add(newFrame);
+                            return newFrame;
+                        }
+                );
     }
 
     public int score() {
         int score = 0;
-        for (int frameIndex = 0; frameIndex < frames.size(); frameIndex++) {
-            Frame currentFrame = frames.get(frameIndex);
+        while (!frames.isEmpty()) {
+            Frame headFrame = frames.pollFirst();
+            score += headFrame.score();
 
-            score += currentFrame.score();
-
-            if (currentFrame.isSpare())
-                score += getFirstRollOfNextFrame(frames, frameIndex + 1);
+            if (headFrame.isSpare() && !frames.isEmpty())
+                score += frames.peekFirst().getRolls().get(0);
         }
 
         return score;
-    }
-
-    private int getFirstRollOfNextFrame(List<Frame> frames, int frameIndex) {
-        if (frameIndex >= frames.size())
-            return 0;
-        return frames.get(frameIndex).getRolls().get(0);
     }
 }
