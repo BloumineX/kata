@@ -40,6 +40,16 @@ public class BowlingGameTest {
                 .isEqualTo(29);
     }
 
+    @Test
+    public void should_score_29_when_roll_1_and_tenth_frame_is_spare_and_1() {
+        performRolls(19, 1);
+        performRolls(1, 9);
+        performRolls(1, 1);
+
+        assertThat(bowlingGame.score())
+                .isEqualTo(29);
+    }
+
     private void performRolls(int roll, int pinsDownPerRoll) {
         Stream.iterate(pinsDownPerRoll, nextRoll -> nextRoll)
                 .limit(roll)

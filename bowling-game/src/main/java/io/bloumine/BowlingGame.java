@@ -22,13 +22,17 @@ public class BowlingGame {
 
     private Frame getOrCreateLastFrame() {
         return Optional.ofNullable(frames.peekLast())
-                .filter(frame -> frame.rollTry() != SECOND_TRY)
+                .filter(frame -> isTenthFrame() || frame.rollTry() != SECOND_TRY)
                 .orElseGet(() -> {
                             Frame newFrame = new Frame();
                             frames.add(newFrame);
                             return newFrame;
                         }
                 );
+    }
+
+    private boolean isTenthFrame() {
+        return frames.size() == 9;
     }
 
     public int score() {
