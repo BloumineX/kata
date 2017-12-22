@@ -50,6 +50,15 @@ public class BowlingGameTest {
                 .isEqualTo(29);
     }
 
+    @Test
+    public void should_score_30_when_roll_strike_and_then_1_pin_down_each_roll() {
+        performRolls(1, 10);
+        performRolls(18, 1);
+
+        assertThat(bowlingGame.score())
+                .isEqualTo(30);
+    }
+
     private void performRolls(int roll, int pinsDownPerRoll) {
         Stream.iterate(pinsDownPerRoll, nextRoll -> nextRoll)
                 .limit(roll)

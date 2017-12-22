@@ -22,7 +22,7 @@ public class BowlingGame {
 
     private Frame getOrCreateLastFrame() {
         return Optional.ofNullable(frames.peekLast())
-                .filter(frame -> isTenthFrame() || frame.rollTry() != SECOND_TRY)
+                .filter(frame -> isTenthFrame(frames) || !isStrike(frame) && frame.rollTry() != SECOND_TRY)
                 .orElseGet(() -> {
                             Frame newFrame = new Frame();
                             frames.add(newFrame);
@@ -31,7 +31,11 @@ public class BowlingGame {
                 );
     }
 
-    private boolean isTenthFrame() {
+    private boolean isStrike(Frame frame) {
+        return frame.isStrike();
+    }
+
+    private boolean isTenthFrame(Deque<Frame> frames) {
         return frames.size() == 9;
     }
 
@@ -43,6 +47,18 @@ public class BowlingGame {
 
             if (headFrame.isSpare() && !frames.isEmpty())
                 score += frames.peekFirst().getRolls().get(0);
+            if (headFrame.isStrike() && !frames.isEmpty())
+                score += getNextRolls(2, frames);
+        }
+
+        return score;
+    }
+
+    private int getNextRolls(int nbRoll, Deque<Frame> frames) {
+        int score = 0;
+
+        for (Frame next : frames) {
+            return next.getRolls().stream().limit(nbRoll).mapToInt(roll -> roll).sum();
         }
 
         return score;

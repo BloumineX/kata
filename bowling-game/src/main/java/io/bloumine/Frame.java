@@ -30,6 +30,10 @@ public class Frame {
     }
 
     public boolean isSpare() {
-        return rolls.size() > 1 && rolls.stream().mapToInt(roll -> roll).sum() == 10;
+        return rolls.size() > 1 && rolls.stream().limit(2).mapToInt(roll -> roll).sum() == 10;
+    }
+
+    public boolean isStrike() {
+        return rolls.size() > 1 && rolls.get(0) == 10;
     }
 }
