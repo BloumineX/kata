@@ -73,6 +73,13 @@ public class FizzBuzzTest {
                 .isEqualTo("buzz");
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {15, 30, 45})
+    public void should_return_fizzbuzz_when_input_is_multiple_of_3_and_5(int multipleOf3And5) {
+        assertThat(numberToString(multipleOf3And5))
+                .isEqualTo("fizzbuzz");
+    }
+
     private String numberToString(int number) {
         return fizzBuzz.generateString(number);
     }

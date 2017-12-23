@@ -2,6 +2,10 @@ package io.bloumine;
 
 public class FizzBuzz {
     public String generateString(int number) {
+
+        if (number % 3 == 0 && number % 5 == 0)
+            return "fizzbuzz";
+
         if (number % 3 == 0)
             return "fizz";
 
