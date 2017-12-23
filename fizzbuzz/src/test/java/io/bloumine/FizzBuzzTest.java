@@ -1,5 +1,6 @@
 package io.bloumine;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,18 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class FizzBuzzTest {
 
-    @Test
-    public void should_return_1_when_input_is_1() {
-        //Act
-        FizzBuzz fizzBuzz = new FizzBuzz();
-
-        //Arrange
-        String result = fizzBuzz.generateString(1);
-
-        //Assert
-        assertThat(result)
-                .isEqualTo("1");
-    }
+    private FizzBuzz fizzBuzz;
 
     private static Stream<Arguments> generateSimpleNumber() {
         return Stream.of(
@@ -38,14 +28,25 @@ public class FizzBuzzTest {
         );
     }
 
+    @BeforeEach
+    void setUp() {
+        fizzBuzz = new FizzBuzz();
+    }
+
+    @Test
+    public void should_return_1_when_input_is_1() {
+        assertThat(numberToString(1))
+                .isEqualTo("1");
+    }
+
     @ParameterizedTest
     @MethodSource("generateSimpleNumber")
     public void should_return_string_number_when_input_is(int number, String solution) {
-        FizzBuzz fizzBuzz = new FizzBuzz();
-
-        String result = fizzBuzz.generateString(number);
-
-        assertThat(result)
+        assertThat(numberToString(number))
                 .isEqualTo(solution);
+    }
+
+    private String numberToString(int number) {
+        return fizzBuzz.generateString(number);
     }
 }
