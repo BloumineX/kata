@@ -25,7 +25,7 @@ public class FizzBuzzTest {
                 Arguments.of(1, "1")
                 , Arguments.of(2, "2")
                 , Arguments.of(4, "4")
-                , Arguments.of(5, "5")
+                , Arguments.of(7, "7")
         );
     }
 
@@ -58,6 +58,12 @@ public class FizzBuzzTest {
     public void should_return_fizz_when_input_is_multiple_of_3(int multipleOf3) {
         assertThat(numberToString(multipleOf3))
                 .isEqualTo("fizz");
+    }
+
+    @Test
+    public void should_return_buzz_when_input_is_5() {
+        assertThat(numberToString(5))
+                .isEqualTo("buzz");
     }
 
     private String numberToString(int number) {
