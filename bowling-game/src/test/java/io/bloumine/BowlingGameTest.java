@@ -8,6 +8,12 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Kata bowling game
+ * based on :
+ * http://butunclebob.com/ArticleS.UncleBob.TheBowlingGameKata
+ * www.butunclebob.com/files/downloads/Bowling Game Kata.ppt
+ */
 public class BowlingGameTest {
 
     private BowlingGame bowlingGame;
