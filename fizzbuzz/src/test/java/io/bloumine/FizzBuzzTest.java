@@ -66,6 +66,13 @@ public class FizzBuzzTest {
                 .isEqualTo("buzz");
     }
 
+    @ParameterizedTest
+    @ValueSource(ints = {5, 10, 25})
+    public void should_return_buzz_when_input_is_multiple_of_5(int multipleOf5) {
+        assertThat(numberToString(multipleOf5))
+                .isEqualTo("buzz");
+    }
+
     private String numberToString(int number) {
         return fizzBuzz.generateString(number);
     }
