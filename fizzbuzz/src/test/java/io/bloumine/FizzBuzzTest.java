@@ -46,6 +46,12 @@ public class FizzBuzzTest {
                 .isEqualTo(solution);
     }
 
+    @Test
+    public void should_return_fizz_when_input_is_3() {
+        assertThat(numberToString(3))
+                .isEqualTo("fizz");
+    }
+
     private String numberToString(int number) {
         return fizzBuzz.generateString(number);
     }
