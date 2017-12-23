@@ -3,7 +3,6 @@ package io.bloumine;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class BowlingGame {
 
@@ -12,7 +11,6 @@ public class BowlingGame {
 
     public BowlingGame() {
         this.frames = new LinkedList<>();
-
     }
 
     public void rolls(Integer pinsDownPerRoll) {
@@ -45,18 +43,18 @@ public class BowlingGame {
             Frame headFrame = frames.pollFirst();
             score += headFrame.score();
 
-            if (headFrame.isSpare() && !frames.isEmpty())
-                score += getNextRolls(1, frames.stream().limit(1));
-            if (headFrame.isStrike() && !frames.isEmpty())
-                score += getNextRolls(2, frames.stream().limit(2));
+            if (headFrame.isSpare())
+                score += getNextRolls(1, frames);
+            if (headFrame.isStrike())
+                score += getNextRolls(2, frames);
         }
 
         return score;
     }
 
-    private int getNextRolls(int nbRoll, Stream<Frame> frames) {
-
-        return frames
+    private int getNextRolls(int nbRoll, Deque<Frame> frames) {
+        return frames.stream()
+                .limit(nbRoll)
                 .flatMap(frame -> frame.getRolls().stream())
                 .limit(nbRoll)
                 .mapToInt(roll -> roll)
