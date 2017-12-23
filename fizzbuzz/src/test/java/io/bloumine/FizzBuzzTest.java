@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 
@@ -49,6 +50,13 @@ public class FizzBuzzTest {
     @Test
     public void should_return_fizz_when_input_is_3() {
         assertThat(numberToString(3))
+                .isEqualTo("fizz");
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {3, 6, 9})
+    public void should_return_fizz_when_input_is_multiple_of_3(int multipleOf3) {
+        assertThat(numberToString(multipleOf3))
                 .isEqualTo("fizz");
     }
 
