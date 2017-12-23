@@ -59,6 +59,14 @@ public class BowlingGameTest {
                 .isEqualTo(30);
     }
 
+    @Test
+    public void should_score_300_when_perfect_game() {
+        performRolls(12, 10);
+
+        assertThat(bowlingGame.score())
+                .isEqualTo(300);
+    }
+
     private void performRolls(int roll, int pinsDownPerRoll) {
         Stream.iterate(pinsDownPerRoll, nextRoll -> nextRoll)
                 .limit(roll)
