@@ -3,6 +3,7 @@ package io.bloumine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +34,7 @@ public class BowlingGameTest {
 
     @Test
     public void should_score_29_when_roll_spare_and_1_pin_down_each_roll() {
-        performRolls(2, 5);
+        performSpare(1, 5, 5);
         performRolls(18, 1);
 
         assertThat(bowlingGame.score())
@@ -42,17 +43,26 @@ public class BowlingGameTest {
 
     @Test
     public void should_score_29_when_roll_1_and_tenth_frame_is_spare_and_1() {
-        performRolls(19, 1);
-        performRolls(1, 9);
+        performRolls(18, 1);
+        performSpare(1, 1, 9);
         performRolls(1, 1);
 
         assertThat(bowlingGame.score())
                 .isEqualTo(29);
     }
 
+    private void performSpare(int rollTry, int firstTry, int secondTry) {
+        IntStream.iterate(0, count -> count + 1)
+                .limit(rollTry)
+                .forEach(number -> {
+                    performRolls(1, firstTry);
+                    performRolls(1, secondTry);
+                });
+    }
+
     @Test
     public void should_score_30_when_roll_strike_and_then_1_pin_down_each_roll() {
-        performRolls(1, 10);
+        performStrike(1);
         performRolls(18, 1);
 
         assertThat(bowlingGame.score())
@@ -61,10 +71,14 @@ public class BowlingGameTest {
 
     @Test
     public void should_score_300_when_perfect_game() {
-        performRolls(12, 10);
+        performStrike(12);
 
         assertThat(bowlingGame.score())
                 .isEqualTo(300);
+    }
+
+    private void performStrike(int rollTry) {
+        performRolls(rollTry, 10);
     }
 
     private void performRolls(int roll, int pinsDownPerRoll) {
