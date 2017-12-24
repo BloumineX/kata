@@ -46,4 +46,10 @@ public class RomanNumberGeneratorTest {
                 .isEqualTo("I");
     }
 
+    @Test
+    public void should_return_V_when_input_is_5() {
+        RomanNumberGenerator romanNumberGenerator = new RomanNumberGenerator();
+        assertThat(romanNumberGenerator.generateToRomanNumber(5))
+                .isEqualTo("V");
+    }
 }
