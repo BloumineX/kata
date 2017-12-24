@@ -1,6 +1,7 @@
 package io.bloumine;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,6 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RomanNumberGeneratorTest {
 
 
+    private RomanNumberGenerator romanNumberGenerator;
+
     static Stream<Arguments> getRomanNumberAndArabicVersion() {
         return Stream.of(
                 Arguments.of(1, "I")
@@ -27,20 +30,20 @@ public class RomanNumberGeneratorTest {
         );
     }
 
+    @BeforeEach
+    void setUp() {
+        romanNumberGenerator = new RomanNumberGenerator();
+    }
+
     @ParameterizedTest
     @MethodSource("getRomanNumberAndArabicVersion")
     public void should_convert_to_roman_numeral_numbers(int arabicNumber, String romanNumber) {
-        RomanNumberGenerator romanNumberGenerator = new RomanNumberGenerator();
-
-        String result = romanNumberGenerator.generateToRomanNumber(arabicNumber);
-
-        assertThat(result)
+        assertThat(romanNumberGenerator.generateToRomanNumber(arabicNumber))
                 .isEqualTo(romanNumber);
     }
 
     @Test
     public void should_return_I_when_input_is_1() {
-        RomanNumberGenerator romanNumberGenerator = new RomanNumberGenerator();
 
         assertThat(romanNumberGenerator.generateToRomanNumber(1))
                 .isEqualTo("I");
@@ -48,7 +51,6 @@ public class RomanNumberGeneratorTest {
 
     @Test
     public void should_return_V_when_input_is_5() {
-        RomanNumberGenerator romanNumberGenerator = new RomanNumberGenerator();
         assertThat(romanNumberGenerator.generateToRomanNumber(5))
                 .isEqualTo("V");
     }
