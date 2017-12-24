@@ -29,19 +29,18 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.8.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <modules>
         <module>roman-number</module>
         <module>fizzbuzz</module>
-        <module>gildedrose</module>
-        <module>tripservice</module>
-        <module>trivia</module>
         <module>bowling-game</module>
     </modules>
 </project>
