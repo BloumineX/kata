@@ -1,6 +1,7 @@
 package io.bloumine;
 
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -37,9 +38,12 @@ public class RomanNumberGeneratorTest {
                 .isEqualTo(romanNumber);
     }
 
-//    @Test
-//    public void should_return_I_when_input_is_1() {
-//
-//    }
+    @Test
+    public void should_return_I_when_input_is_1() {
+        RomanNumberGenerator romanNumberGenerator = new RomanNumberGenerator();
+
+        assertThat(romanNumberGenerator.generateToRomanNumber(1))
+                .isEqualTo("I");
+    }
 
 }
