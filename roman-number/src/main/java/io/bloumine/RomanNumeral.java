@@ -1,7 +1,9 @@
 package io.bloumine;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public enum RomanNumeral {
     I(1, null), V(5, I), X(10, I), L(50, X), C(100, X), D(500, C), M(1000, C);
@@ -14,15 +16,21 @@ public enum RomanNumeral {
         this.subsctractedValue = canBeSubstractedToTheRoman;
     }
 
-    private static int romanLettersNeededFrom(Integer arabic, Integer romanLetterArabicValue) {
-        return arabic / romanLetterArabicValue;
+    public static List<RomanNumeral> orderRomanNumeralsByArabicValueDesc() {
+        return Stream.of(RomanNumeral.values())
+                .sorted((romanLetter1, romanLetter2) -> romanLetter2.compareNumericValueTo(romanLetter1))
+                .collect(Collectors.toList());
     }
 
     public int getEquivalentToArabic() {
         return equivalentToArabic;
     }
 
-    public String romanLetterNeededToConvert(Integer arabic) {
+    private static int romanLettersNeededFrom(Integer arabic, Integer romanLetterArabicValue) {
+        return arabic / romanLetterArabicValue;
+    }
+
+    public String retrieveRomanLettersFrom(Integer arabic) {
         int timesRomanNumeralNeeded = romanLettersNeededFrom(arabic, this.equivalentToArabic);
         String romanLetter = getRomanLetterNTimes(timesRomanNumeralNeeded);
 
