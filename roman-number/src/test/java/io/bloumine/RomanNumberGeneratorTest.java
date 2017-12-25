@@ -20,13 +20,21 @@ public class RomanNumberGeneratorTest {
 
     private RomanNumberGenerator romanNumberGenerator;
 
-    static Stream<Arguments> getRomanNumberAndArabicVersion() {
+    private static Stream<Arguments> getRomanNumberAndArabicVersion() {
         return Stream.of(
                 Arguments.of(1, "I")
                 , Arguments.of(3, "III")
                 , Arguments.of(9, "IX")
                 , Arguments.of(1066, "MLXVI")
                 , Arguments.of(1989, "MCMLXXXIX")
+        );
+    }
+
+    private static Stream<Arguments> getRomanNumber1_2_3() {
+        return Stream.of(
+                Arguments.of(1, "I")
+                , Arguments.of(2, "II")
+                , Arguments.of(3, "III")
         );
     }
 
@@ -53,5 +61,12 @@ public class RomanNumberGeneratorTest {
     public void should_return_V_when_input_is_5() {
         assertThat(romanNumberGenerator.generateToRomanNumber(5))
                 .isEqualTo("V");
+    }
+
+    @ParameterizedTest
+    @MethodSource("getRomanNumber1_2_3")
+    public void should_return_up_to_3_I_when_number_is_up_to_3(int number, String romanNumber) {
+        assertThat(romanNumberGenerator.generateToRomanNumber(number))
+                .isEqualTo(romanNumber);
     }
 }
