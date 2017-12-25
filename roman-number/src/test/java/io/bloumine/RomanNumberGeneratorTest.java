@@ -69,4 +69,10 @@ public class RomanNumberGeneratorTest {
         assertThat(romanNumberGenerator.generateToRomanNumber(number))
                 .isEqualTo(romanNumber);
     }
+
+    @Test
+    public void should_return_VIII_when_number_is_8() {
+        assertThat(romanNumberGenerator.generateToRomanNumber(8))
+                .isEqualTo("VIII");
+    }
 }

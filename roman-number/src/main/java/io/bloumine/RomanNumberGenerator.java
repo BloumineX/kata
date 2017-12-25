@@ -4,11 +4,16 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class RomanNumberGenerator {
+
+    public static final String NO_DELIMITER = "";
+
     public String generateToRomanNumber(int arabicNumber) {
         StringBuilder romanNumber = new StringBuilder();
 
-        if (arabicNumber == 5)
+        if (arabicNumber >= 5) {
             romanNumber.append("V");
+            arabicNumber -= 5;
+        }
 
         if (arabicNumber <= 3)
             romanNumber.append(getIWhenNumberInfTo3(arabicNumber));
@@ -20,8 +25,6 @@ public class RomanNumberGenerator {
         return  IntStream.iterate(1, number -> number + 1)
                 .limit(arabicNumber)
                 .mapToObj(arabic -> "I")
-                .collect(Collectors.joining(""));
-
-
+                .collect(Collectors.joining(NO_DELIMITER));
     }
 }
