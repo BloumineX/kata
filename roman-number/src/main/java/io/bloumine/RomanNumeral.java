@@ -1,5 +1,6 @@
 package io.bloumine;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -77,5 +78,11 @@ public enum RomanNumeral {
 
     public int compareNumericValueTo(RomanNumeral other) {
         return this.equivalentToArabic - other.equivalentToArabic;
+    }
+
+    public static RomanNumeral retrieveRomanNumeralFromASCII(int asciiLetter) {
+        return Arrays.stream(RomanNumeral.values())
+                .reduce((romanNumeral, romanNumeral2) -> romanNumeral.name().charAt(0) == asciiLetter ? romanNumeral : romanNumeral2)
+                .get();
     }
 }
