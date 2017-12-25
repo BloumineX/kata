@@ -1,7 +1,7 @@
 package io.bloumine;
 
 public enum RomanNumeral {
-    I(1, null), V(5, I), X(10, I);
+    I(1, null), V(5, I), X(10, I), L(50, null);
 
     private final int arabicValue;
     private final RomanNumeral subsctractedValue;
@@ -13,18 +13,6 @@ public enum RomanNumeral {
 
     public int getArabicValue() {
         return arabicValue;
-    }
-
-    public int getArabicValueOfEnumWithSubstract() {
-        return this.arabicValue - this.subsctractedValue.getArabicValue();
-    }
-
-    public String getRomanNameWithSubstract() {
-        return subsctractedValue.name() + this.name();
-    }
-
-    public boolean hasSubstractedRomanValue() {
-        return subsctractedValue != null;
     }
 
     public String numeralRomanFromNumberIfExist(Integer arabic) {
@@ -53,6 +41,18 @@ public enum RomanNumeral {
         }
 
         return arabic;
+    }
+
+    private int getArabicValueOfEnumWithSubstract() {
+        return this.arabicValue - this.subsctractedValue.getArabicValue();
+    }
+
+    private String getRomanNameWithSubstract() {
+        return subsctractedValue.name() + this.name();
+    }
+
+    private boolean hasSubstractedRomanValue() {
+        return subsctractedValue != null;
     }
 
     private boolean arabicNumberDividedByRomanEqIsAtLeast1(int arabicNumber, int arabicValue) {

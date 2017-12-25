@@ -88,6 +88,18 @@ public class RomanNumberGeneratorTest {
                 .isEqualTo("IV");
     }
 
+    @Test
+    public void should_return_IX_when_numberis_9() {
+        assertThat(getNumeralRoman(9))
+                .isEqualTo("IX");
+    }
+
+    @Test
+    public void should_return_L_when_number_is_50() {
+        assertThat(getNumeralRoman(50))
+                .isEqualTo("L");
+    }
+
     public String getNumeralRoman(int i) {
         return romanNumberGenerator.generateToRomanNumber(i);
     }
