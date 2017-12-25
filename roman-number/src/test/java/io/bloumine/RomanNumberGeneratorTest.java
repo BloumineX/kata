@@ -82,6 +82,12 @@ public class RomanNumberGeneratorTest {
                 .isEqualTo("X");
     }
 
+//    @Test
+//    public void should_return_IV_when_number_is_4() {
+//        assertThat(getNumeralRoman(4))
+//                .isEqualTo("IV");
+//    }
+
     public String getNumeralRoman(int i) {
         return romanNumberGenerator.generateToRomanNumber(i);
     }
