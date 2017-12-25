@@ -13,7 +13,7 @@ public class RomanNumberGenerator {
 
         for (RomanNumeral roman : gerReverseRomanNumeralList()) {
             romanNumber.append(roman.numeralRomanFromNumberIfExist(arabicNumber));
-            arabicNumber = roman.getArabicValueof(arabicNumber);
+            arabicNumber = roman.returnArabicValueMinusRomanIfPossible(arabicNumber);
         }
 
         return romanNumber.toString();

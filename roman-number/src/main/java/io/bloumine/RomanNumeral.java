@@ -18,7 +18,7 @@ public enum RomanNumeral {
     public String numeralRomanFromNumberIfExist(Integer arabic) {
         StringBuilder numeral = new StringBuilder();
 
-        while (arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValue()) ) {
+        while (arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValue())) {
             numeral.append(this.name());
             arabic -= this.getArabicValue();
         }
@@ -31,8 +31,8 @@ public enum RomanNumeral {
         return numeral.toString();
     }
 
-    public int getArabicValueof(int arabic) {
-        while (arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValue()) )
+    public int returnArabicValueMinusRomanIfPossible(int arabic) {
+        while (arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValue()))
             arabic -= this.getArabicValue();
 
         if (this.hasSubstractedRomanValue()
