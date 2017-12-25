@@ -19,11 +19,7 @@ public class RomanNumberGenerator {
 
     private List<RomanNumeral> getRomanLetterOrderedDescFromValue() {
         return Stream.of(RomanNumeral.values())
-                .sorted(this::getHighestArabicValueFrom)
+                .sorted((romanLetter1, romanLetter2) -> romanLetter2.compareNumericValueTo(romanLetter1))
                 .collect(Collectors.toList());
-    }
-
-    private int getHighestArabicValueFrom(RomanNumeral numeralLetter1, RomanNumeral numeralLetter2) {
-        return numeralLetter2.getArabicValue() - numeralLetter1.getArabicValue();
     }
 }

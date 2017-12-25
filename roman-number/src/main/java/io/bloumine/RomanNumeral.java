@@ -58,4 +58,8 @@ public enum RomanNumeral {
     private boolean arabicNumberDividedByRomanEqIsAtLeast1(int arabicNumber, int arabicValue) {
         return arabicNumber / arabicValue >= 1;
     }
+
+    public int compareNumericValueTo(RomanNumeral other) {
+        return this.arabicValue - other.arabicValue;
+    }
 }
