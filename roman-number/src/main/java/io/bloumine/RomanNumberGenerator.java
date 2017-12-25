@@ -30,15 +30,9 @@ public class RomanNumberGenerator {
         while (!romanNumeralQueue.isEmpty()) {
             int asciiLetter = romanNumeralQueue.pollFirst();
             resultNumber += RomanNumeral.retrieveRomanNumeralFromASCII(asciiLetter).getEquivalentToArabic();
-
         }
 
-
-        if ("III".equals(romanNumber))
-            return 3;
-        if ("II".equals(romanNumber))
-            return 2;
-        return 1;
+        return resultNumber;
     }
 
     public Deque<Integer> getQueueOfRomanNumeralLetters(String romanNumeral) {
