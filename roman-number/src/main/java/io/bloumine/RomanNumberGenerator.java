@@ -23,16 +23,44 @@ public class RomanNumberGenerator {
         return romanNumeral.toString();
     }
 
-    public int generateToArabicNumber(String romanNumber) {
-        Deque<Integer> romanNumeralQueue = getQueueOfRomanNumeralLetters(romanNumber);
+    public int generateToArabicNumber(String romanNumeralLetters) {
+        Deque<Integer> romanNumeralQueue = getQueueOfRomanNumeralLetters(romanNumeralLetters);
         int resultNumber = 0;
 
-        while (!romanNumeralQueue.isEmpty()) {
-            int asciiLetter = romanNumeralQueue.pollFirst();
-            resultNumber += RomanNumeral.retrieveRomanNumeralFromASCII(asciiLetter).getEquivalentToArabic();
+        while (romanNumeralQueueIsNotEmpty(romanNumeralQueue)) {
+            int asciiLetter = pollNextValue(romanNumeralQueue);
+
+            if (asciiLetterIsASubstractedValue(asciiLetter, romanNumeralQueue.peekFirst())) {
+                Integer nextRomanASCIILetter = pollNextValue(romanNumeralQueue);
+                resultNumber += getArabicNumberFromRomanSubstractedASCIILetter(nextRomanASCIILetter);
+                continue;
+            }
+
+            resultNumber += getArabicNumberFromRomanASCIILetter(asciiLetter);
         }
 
         return resultNumber;
+    }
+
+    public Integer pollNextValue(Deque<Integer> romanNumeralQueue) {
+        return romanNumeralQueue.pollFirst();
+    }
+
+    public boolean romanNumeralQueueIsNotEmpty(Deque<Integer> romanNumeralQueue) {
+        return !romanNumeralQueue.isEmpty();
+    }
+
+    private int getArabicNumberFromRomanSubstractedASCIILetter(int asciiLetter) {
+        return RomanNumeral.retrieveRomanNumeralFromASCII(asciiLetter).getArabicValueOfEnumWithSubstract();
+    }
+
+    public int getArabicNumberFromRomanASCIILetter(int asciiLetter) {
+        return RomanNumeral.retrieveRomanNumeralFromASCII(asciiLetter).getEquivalentToArabic();
+    }
+
+    private boolean asciiLetterIsASubstractedValue(int romanASCIILetter, Integer nextRomanASCIILetter) {
+        return nextRomanASCIILetter != null
+            && getArabicNumberFromRomanASCIILetter(romanASCIILetter) < getArabicNumberFromRomanASCIILetter(nextRomanASCIILetter);
     }
 
     public Deque<Integer> getQueueOfRomanNumeralLetters(String romanNumeral) {

@@ -64,7 +64,7 @@ public enum RomanNumeral {
         return newNumber;
     }
 
-    private int getArabicValueOfEnumWithSubstract() {
+    public int getArabicValueOfEnumWithSubstract() {
         return this.equivalentToArabic - this.subsctractedValue.getEquivalentToArabic();
     }
 

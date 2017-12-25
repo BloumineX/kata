@@ -54,6 +54,12 @@ public class RomanToArabicNumberGeneratorTest {
                 .isEqualTo(3);
     }
 
+    @Test
+    public void should_return_IV_when_romanNumeral_is_IV() {
+        assertThat(getArabicNumber("IV"))
+                .isEqualTo(4);
+    }
+
     private int getArabicNumber(String romanNumeral) {
         return romanNumberGenerator.generateToArabicNumber(romanNumeral);
     }
