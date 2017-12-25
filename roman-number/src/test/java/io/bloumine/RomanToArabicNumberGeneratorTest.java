@@ -48,6 +48,12 @@ public class RomanToArabicNumberGeneratorTest {
                 .isEqualTo(2);
     }
 
+    @Test
+    public void should_return_3_when_romanNumeral_is_III() {
+        assertThat(getArabicNumber("III"))
+                .isEqualTo(3);
+    }
+
     private int getArabicNumber(String romanNumeral) {
         return romanNumberGenerator.generateToArabicNumber(romanNumeral);
     }

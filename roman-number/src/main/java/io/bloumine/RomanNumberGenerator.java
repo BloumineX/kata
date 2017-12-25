@@ -20,7 +20,9 @@ public class RomanNumberGenerator {
     }
 
     public int generateToArabicNumber(String romanNumeral) {
-        if (romanNumeral == "II")
+        if ("III".equals(romanNumeral))
+            return 3;
+        if ("II".equals(romanNumeral))
             return 2;
         return 1;
     }
