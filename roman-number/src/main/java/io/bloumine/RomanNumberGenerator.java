@@ -12,21 +12,14 @@ public class RomanNumberGenerator {
         StringBuilder romanNumber = new StringBuilder();
 
         for (RomanNumeral roman : gerReverseRomanNumeralList()) {
-            while (arabicNumber / roman.getArabicValue() >= 1) {
-                romanNumber.append(roman.name());
-                arabicNumber -= roman.getArabicValue();
-            }
-
-            if (roman.hasSubstractedRomanValue() && arabicNumber / roman.getArabicValueOfEnumWithSubstract() >= 1) {
-                romanNumber.append(roman.getRomanNameWithSubstract());
-                arabicNumber -= roman.getArabicValue();
-            }
+            romanNumber.append(roman.numeralRomanFromNumberIfExist(arabicNumber));
+            arabicNumber = roman.getArabicValueof(arabicNumber);
         }
 
         return romanNumber.toString();
     }
 
-    public List<RomanNumeral> gerReverseRomanNumeralList() {
+    private List<RomanNumeral> gerReverseRomanNumeralList() {
         List<RomanNumeral> romanNumerals = Arrays.asList(RomanNumeral.values());
         Collections.reverse(romanNumerals);
         return romanNumerals;
