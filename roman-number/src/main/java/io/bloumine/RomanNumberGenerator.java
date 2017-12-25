@@ -10,13 +10,15 @@ public class RomanNumberGenerator {
     public String generateToRomanNumber(int arabicNumber) {
         StringBuilder romanNumber = new StringBuilder();
 
+        if (arabicNumber == 10)
+            return "X";
+
         if (arabicNumber >= 5) {
             romanNumber.append("V");
             arabicNumber -= 5;
         }
 
-        if (arabicNumber <= 3)
-            romanNumber.append(getIWhenNumberInfTo3(arabicNumber));
+        romanNumber.append(getIWhenNumberInfTo3(arabicNumber));
 
         return romanNumber.toString();
     }
