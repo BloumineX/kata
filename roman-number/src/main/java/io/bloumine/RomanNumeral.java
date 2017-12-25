@@ -26,11 +26,11 @@ public enum RomanNumeral {
         return equivalentToArabic;
     }
 
-    private static int romanLettersNeededFrom(Integer arabic, Integer romanLetterArabicValue) {
+    private static int romanLettersNeededFrom(int arabic, int romanLetterArabicValue) {
         return arabic / romanLetterArabicValue;
     }
 
-    public String retrieveRomanLettersFrom(Integer arabic) {
+    public String retrieveRomanLettersFrom(int arabic) {
         int timesRomanNumeralNeeded = romanLettersNeededFrom(arabic, this.equivalentToArabic);
         String romanLetter = getRomanLetterNTimes(timesRomanNumeralNeeded);
 
