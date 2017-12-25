@@ -16,6 +16,11 @@ public class RomanNumberGenerator {
                 romanNumber.append(roman.name());
                 arabicNumber -= roman.getArabicValue();
             }
+
+            if (roman.hasSubstractedRomanValue() && arabicNumber / roman.getArabicValueOfEnumWithSubstract() >= 1) {
+                romanNumber.append(roman.getRomanNameWithSubstract());
+                arabicNumber -= roman.getArabicValue();
+            }
         }
 
         return romanNumber.toString();

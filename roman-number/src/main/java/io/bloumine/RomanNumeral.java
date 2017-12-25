@@ -1,33 +1,29 @@
 package io.bloumine;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum RomanNumeral {
-    I(1), V(5), X(10);
-
-    private static Map<Integer, RomanNumeral> arabicToNumeral;
-
-    static {
-        arabicToNumeral = new HashMap<>();
-        for (RomanNumeral value : RomanNumeral.values()) {
-            arabicToNumeral.put(value.getArabicValue(), value);
-        }
-    }
+    I(1, null), V(5, I), X(10, I);
 
     private final int arabicValue;
+    private final RomanNumeral subsctractedValue;
 
-    RomanNumeral(int arabicValue) {
+    RomanNumeral(int arabicValue, RomanNumeral canBeSubstractedToTheRoman) {
         this.arabicValue = arabicValue;
-    }
-
-    public static RomanNumeral getRomanNumeralFromArabic(int arabicValue) {
-        return arabicToNumeral.get(arabicValue);
+        this.subsctractedValue = canBeSubstractedToTheRoman;
     }
 
     public int getArabicValue() {
         return arabicValue;
     }
 
+    public int getArabicValueOfEnumWithSubstract() {
+        return this.arabicValue - this.subsctractedValue.getArabicValue();
+    }
 
+    public String getRomanNameWithSubstract() {
+        return subsctractedValue.name() + this.name();
+    }
+
+    public boolean hasSubstractedRomanValue() {
+        return subsctractedValue != null;
+    }
 }
