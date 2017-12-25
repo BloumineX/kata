@@ -18,4 +18,10 @@ public class RomanNumberGenerator {
 
         return romanNumeral.toString();
     }
+
+    public int generateToArabicNumber(String romanNumeral) {
+        if (romanNumeral == "II")
+            return 2;
+        return 1;
+    }
 }

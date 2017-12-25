@@ -15,8 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Roman number kata based on :
  * http://agilekatas.co.uk/katas/romannumerals-kata
  */
-public class RomanNumberGeneratorTest {
-
+public class ArabicToRomanNumberGeneratorTest {
 
     private RomanNumberGenerator romanNumberGenerator;
 
