@@ -7,17 +7,25 @@ import java.util.stream.Stream;
 public class RomanNumberGenerator {
 
     public String generateToRomanNumber(int arabicNumber) {
-        StringBuilder romanNumber = new StringBuilder();
+        StringBuilder romanNumeral = new StringBuilder();
 
-        for (RomanNumeral roman : getRomanLetterOrderedDescFromValue()) {
-            romanNumber.append(roman.numeralRomanFromNumberIfExist(arabicNumber));
-            arabicNumber = roman.returnArabicValueMinusRomanIfPossible(arabicNumber);
+        int remainingNumber = arabicNumber;
+        for (RomanNumeral roman : getRomanNumeralOrderedDescFromArabicValue()) {
+
+            String romanLetters = getHighestRomanLettersLowerThanRemainingNumber(remainingNumber, roman);
+            remainingNumber = roman.getRemainingNumberUpdated(arabicNumber);
+
+            romanNumeral.append(romanLetters);
         }
 
-        return romanNumber.toString();
+        return romanNumeral.toString();
     }
 
-    private List<RomanNumeral> getRomanLetterOrderedDescFromValue() {
+    private String getHighestRomanLettersLowerThanRemainingNumber(int remainingNumber, RomanNumeral roman) {
+        return roman.romanLetterNeededToConvert(remainingNumber);
+    }
+
+    private List<RomanNumeral> getRomanNumeralOrderedDescFromArabicValue() {
         return Stream.of(RomanNumeral.values())
                 .sorted((romanLetter1, romanLetter2) -> romanLetter2.compareNumericValueTo(romanLetter1))
                 .collect(Collectors.toList());

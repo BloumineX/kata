@@ -1,65 +1,73 @@
 package io.bloumine;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public enum RomanNumeral {
     I(1, null), V(5, I), X(10, I), L(50, X), C(100, X), D(500, C), M(1000, C);
 
-    private final int arabicValue;
+    private final int equivalentToArabic;
     private final RomanNumeral subsctractedValue;
 
-    RomanNumeral(int arabicValue, RomanNumeral canBeSubstractedToTheRoman) {
-        this.arabicValue = arabicValue;
+    RomanNumeral(int equivalentToArabic, RomanNumeral canBeSubstractedToTheRoman) {
+        this.equivalentToArabic = equivalentToArabic;
         this.subsctractedValue = canBeSubstractedToTheRoman;
     }
 
-    public int getArabicValue() {
-        return arabicValue;
+    private static int romanLettersNeededFrom(Integer arabic, Integer romanLetterArabicValue) {
+        return arabic / romanLetterArabicValue;
     }
 
-    public String numeralRomanFromNumberIfExist(Integer arabic) {
-        StringBuilder numeral = new StringBuilder();
-
-        while (arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValue())) {
-            numeral.append(this.name());
-            arabic -= this.getArabicValue();
-        }
-
-        if (this.hasSubstractedRomanValue()
-                && arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValueOfEnumWithSubstract())) {
-            numeral.append(this.getRomanNameWithSubstract());
-        }
-
-        return numeral.toString();
+    public int getEquivalentToArabic() {
+        return equivalentToArabic;
     }
 
-    public int returnArabicValueMinusRomanIfPossible(int arabic) {
-        while (arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValue()))
-            arabic -= this.getArabicValue();
+    public String romanLetterNeededToConvert(Integer arabic) {
+        int timesRomanNumeralNeeded = romanLettersNeededFrom(arabic, this.equivalentToArabic);
+        String romanLetter = getRomanLetterNTimes(timesRomanNumeralNeeded);
 
-        if (this.hasSubstractedRomanValue()
-                && arabicNumberDividedByRomanEqIsAtLeast1(arabic, this.getArabicValueOfEnumWithSubstract())) {
-            arabic -= this.getArabicValueOfEnumWithSubstract();
-        }
+        int remainArabicNumber = arabic % this.equivalentToArabic;
 
-        return arabic;
+        if (needToRemoveSubstractedValue(remainArabicNumber))
+            romanLetter += this.getRomanNameWithSubstract();
+
+        return romanLetter;
+    }
+
+    private boolean needToRemoveSubstractedValue(int remainArabic) {
+        return this.hasSubstractedRomanLetter() &&
+                romanLettersNeededFrom(remainArabic, this.getArabicValueOfEnumWithSubstract()) > 0;
+    }
+
+    public String getRomanLetterNTimes(int timesRomanLetterNeeded) {
+        return IntStream.iterate(0, number -> number + 1)
+                .limit(timesRomanLetterNeeded)
+                .mapToObj(number -> this.name())
+                .collect(Collectors.joining());
+    }
+
+    public int getRemainingNumberUpdated(int arabic) {
+        int newNumber = arabic % this.equivalentToArabic;
+
+        if (this.hasSubstractedRomanLetter())
+            newNumber = newNumber % this.getArabicValueOfEnumWithSubstract();
+
+        return newNumber;
     }
 
     private int getArabicValueOfEnumWithSubstract() {
-        return this.arabicValue - this.subsctractedValue.getArabicValue();
+        return this.equivalentToArabic - this.subsctractedValue.getEquivalentToArabic();
     }
 
     private String getRomanNameWithSubstract() {
         return subsctractedValue.name() + this.name();
     }
 
-    private boolean hasSubstractedRomanValue() {
+    private boolean hasSubstractedRomanLetter() {
         return subsctractedValue != null;
     }
 
-    private boolean arabicNumberDividedByRomanEqIsAtLeast1(int arabicNumber, int arabicValue) {
-        return arabicNumber / arabicValue >= 1;
-    }
-
     public int compareNumericValueTo(RomanNumeral other) {
-        return this.arabicValue - other.arabicValue;
+        return this.equivalentToArabic - other.equivalentToArabic;
     }
 }
