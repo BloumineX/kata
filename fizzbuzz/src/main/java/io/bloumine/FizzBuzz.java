@@ -2,14 +2,10 @@ package io.bloumine;
 
 public class FizzBuzz {
     public String generateString(int number) {
-        if (isMultipleOf3Or5(number))
+        if (isMultipleOf3(number) || isMultipleOf5(number))
             return fizzIfMultipleOf3(number) + buzzIfMultipleOf5(number);
 
         return String.valueOf(number);
-    }
-
-    private boolean isMultipleOf3Or5(int number) {
-        return isMultipleOf3(number) || isMultipleOf5(number);
     }
 
     private boolean isMultipleOf5(int number) {
