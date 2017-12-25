@@ -46,39 +46,43 @@ public class RomanNumberGeneratorTest {
     @ParameterizedTest
     @MethodSource("getRomanNumberAndArabicVersion")
     public void should_convert_to_roman_numeral_numbers(int arabicNumber, String romanNumber) {
-        assertThat(romanNumberGenerator.generateToRomanNumber(arabicNumber))
+        assertThat(getNumeralRoman(arabicNumber))
                 .isEqualTo(romanNumber);
     }
 
     @Test
     public void should_return_I_when_input_is_1() {
 
-        assertThat(romanNumberGenerator.generateToRomanNumber(1))
+        assertThat(getNumeralRoman(1))
                 .isEqualTo("I");
     }
 
     @Test
     public void should_return_V_when_input_is_5() {
-        assertThat(romanNumberGenerator.generateToRomanNumber(5))
+        assertThat(getNumeralRoman(5))
                 .isEqualTo("V");
     }
 
     @ParameterizedTest
     @MethodSource("getRomanNumber1_2_3")
     public void should_return_up_to_3_I_when_number_is_up_to_3(int number, String romanNumber) {
-        assertThat(romanNumberGenerator.generateToRomanNumber(number))
+        assertThat(getNumeralRoman(number))
                 .isEqualTo(romanNumber);
     }
 
     @Test
     public void should_return_VIII_when_number_is_8() {
-        assertThat(romanNumberGenerator.generateToRomanNumber(8))
+        assertThat(getNumeralRoman(8))
                 .isEqualTo("VIII");
     }
 
     @Test
     public void should_return_X_when_number_is_10() {
-        assertThat(romanNumberGenerator.generateToRomanNumber(10))
+        assertThat(getNumeralRoman(10))
                 .isEqualTo("X");
+    }
+
+    public String getNumeralRoman(int i) {
+        return romanNumberGenerator.generateToRomanNumber(i);
     }
 }
