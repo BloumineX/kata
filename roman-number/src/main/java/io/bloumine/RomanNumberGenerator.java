@@ -6,8 +6,6 @@ import java.util.List;
 
 public class RomanNumberGenerator {
 
-    public static final String NO_DELIMITER = "";
-
     public String generateToRomanNumber(int arabicNumber) {
         StringBuilder romanNumber = new StringBuilder();
 

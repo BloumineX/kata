@@ -100,6 +100,12 @@ public class RomanNumberGeneratorTest {
                 .isEqualTo("L");
     }
 
+    @Test
+    public void should_return_L_when_number_is_40() {
+        assertThat(getNumeralRoman(40))
+                .isEqualTo("XL");
+    }
+
     public String getNumeralRoman(int i) {
         return romanNumberGenerator.generateToRomanNumber(i);
     }
