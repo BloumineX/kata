@@ -1,7 +1,7 @@
 package io.bloumine;
 
 public enum RomanNumeral {
-    I(1, null), V(5, I), X(10, I), L(50, X);
+    I(1, null), V(5, I), X(10, I), L(50, X), C(100, X), D(500, C), M(1000, C);
 
     private final int arabicValue;
     private final RomanNumeral subsctractedValue;
